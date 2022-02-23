@@ -18,6 +18,9 @@ export async function post({ request }) {
   }
 }
 catch(err){
+  if (err) {
+    response.status(500).send(err)
+  }
   return {
     body: err 
   }
