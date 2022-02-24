@@ -97,3 +97,16 @@ Once all the changes are done start your server by running
 npm run dev
 
 ```
+
+# Shortcut
+
+If you can't or don't wanna do all that for the resolve backend then go to this other of my [repo](https://github.com/DandyJoshua14/shopping-list) and clone it then just locate the folder, run 
+```bash 
+npm install 
+``` 
+Then 
+```bash
+
+npm run dev
+
+```
