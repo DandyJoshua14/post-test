@@ -36,9 +36,10 @@ or
 yarn start
 
 ```
-Next Change the port that your svelteapp will be running on to port 9000 as follows:
+Next Change the port in your package.json file so that your svelteapp will be running on to port 9000 as follows:
 
-![port 5000](https://user-images.githubusercontent.com/58561779/155515408-afc6926b-2b57-44a7-aacb-7bc562f2a59b.png)
+![post test config](https://user-images.githubusercontent.com/58561779/155517245-5e4dc3b8-b52d-4d96-ad4b-15158e7fe822.png)
+
 
 and save your changes
 
