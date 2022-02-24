@@ -11,7 +11,7 @@ export async function get({request}){
 export async function post({ request }) {
   let body = await request.json()
   try {
-    let response = await axios.post('http://localhost:3000/api/commands', {
+    let response = await axios.post('http://localhost:3000/api/commands', 'localhost:3000/api/query/UserAggregate/all', {
     "aggregateName": "Users",
     "type": "create",
     "aggregateId": body.id,
