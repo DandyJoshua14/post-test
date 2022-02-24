@@ -72,6 +72,14 @@ To setup your resolve app locally make sure you have npx, nvm, npm installed whi
 npx create-resolve-app my-resolve-backend
 
 ```
+## Bonus Step
+> Note: If you do this Bonus step you don't have to setup a whole new Resolve Project.
+
+Just redirect to my other [repo](https://github.com/DandyJoshua14/shopping-list/)
+
+Now wether you create a new project or not you will still have to follow these steps below to enable your sveltekit app run with resolve
+
+
 First Change Your Event Types at /common/event-types.js:
 ![event types](https://user-images.githubusercontent.com/58561779/155514338-9dbfe128-1435-450e-b55c-a5e44705cf0d.png)
 
