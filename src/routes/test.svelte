@@ -3,16 +3,43 @@
     import { goto } from "$app/navigation";
     import { v4 as uuid } from 'uuid'
     import { Container, Button } from "sveltestrap";
-import { users, Email, id, Password, isLoggedIn, readOnly } from './stores/store';
-  
+import { users, Email, id, Password, isLoggedIn, Gender } from './stores/store';
+import { onMount } from 'svelte';
+    // alert('Please refresh this Page if you know you had previously deleted your account')
+      let gender = [
+        {id: 1, text:'male'},
+        {id: 2, text: 'female'}
+      ]
       let password = "";
       let userName = "";
       let email = "";
-    
+      let selected;
+      let selectedGender;
+      let answer = ""
     async function signUp() {
       $users = userName
         $Email = email
         $id = uuid()
+        $Password = password
+        if(answer.id === 1) {
+          selectedGender = 'his'
+        } else {
+          selectedGender = 'her'
+        }
+        $Gender = selectedGender
+        if(!$id || !$Email || !$Password || !$users || !password || !userName || !email || !gender) {
+          $id = null
+          $isLoggedIn = false
+          await goto ('/test')
+          alert("Please Fill In the neccessary info")
+          console.log($isLoggedIn)
+        } else{
+          alert ("Request sent. Redirecting......")
+          $isLoggedIn = true;
+          $Password = password
+          setTimeout(3000, await goto('/'))
+          console.log($isLoggedIn)
+        }
       await fetch('/api/es', {
         method: 'POST',
         headers: {
@@ -23,30 +50,17 @@ import { users, Email, id, Password, isLoggedIn, readOnly } from './stores/store
             id: $id,
             name: $users,
             email: $Email,
-            password: $Password
+            password: $Password,
+            gender: $Gender
           })
         })
-        if(!$id, !$Email, !$Password, !$users, !password, !userName, !email) {
-          $isLoggedIn = false
-          $Password = password
-          $id = null
-          await goto ('/test')
-          alert("Please Fill In the neccessary info")
-          console.log($isLoggedIn)
-        } else{
-          alert ("Request sent. Redirecting......")
-          $isLoggedIn = true;
-          $Password = stringHash(password)
-          setTimeout(3000, await goto('/'))
-          console.log($isLoggedIn)
-        }
   }
     </script>
-    <svelte:head><title>Log In Form</title></svelte:head>
+    <svelte:head><title>Sign Up Form</title></svelte:head>
     <Container>
         <div class="form">
             <br>
-            <h3 style="color: white;">Log In!</h3>
+            <h3 style="color: white;">Sign Up!</h3>
             <br>
             <div>
               <form on:submit|preventDefault={signUp}>
@@ -58,15 +72,24 @@ import { users, Email, id, Password, isLoggedIn, readOnly } from './stores/store
                 <input type="email" bind:value={email} />
                 <br />
                 <label for="email" style="color: white;">Email</label>
-                <br />
-                <br />
+                <br/>
+                <br/>
                 <input type="password" bind:value={password} />
                 <br />
                 <label for="password" style="color: white;">Password</label>
                 <br />
                 <br />
+                <select bind:value={answer}>
+                  {#each gender as question}
+                    <option value={question}>
+                      {question.text}
+                    </option>
+                  {/each}
+                </select>
+                <br/>
+                <br/>
                 <p>Don't have an account? <a href="/Signup">Sign Up</a></p>
-                <Button color="success">Log In</Button>
+                <Button color="success" disabled={!answer} >Log In</Button>
                 <br />
                 <br />
               </form>

@@ -9,7 +9,7 @@ export async function post({ request }) {
     "aggregateId": body.id,
     "payload": {
       "name": body.name,
-      "modificationDate": `${body.name} modified their name on: ${Date()}`
+      "modificationDate": `${body.name} modified ${body.gender} name on: ${Date()}`
     }
   });
   return {
@@ -18,9 +18,6 @@ export async function post({ request }) {
   }
 }
 catch(err){
-  if (err) {
-    response.status(500).send(err)
-  }
   return {
     body: err 
   }

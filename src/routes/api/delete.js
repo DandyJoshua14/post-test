@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export async function post({ request }) {
   let body = await request.json()
+  console.log(Response)
   try {
     let response = await axios.post('http://localhost:3000/api/commands', {
     "aggregateName": "Users",
@@ -9,12 +10,13 @@ export async function post({ request }) {
     "aggregateId": body.id,
     "payload": {
       "email": body.email,
-      "modificationDate": `${body.name} modified their email on: ${Date()}`
+      "modificationDate": `${body.name} modified their email on: ${Date()}`,
+      "reason": `${body.reason}`
     }
   });
   return {
     status: 200,
-    body:response.data
+    body:response.data,
   }
 }
 catch(err){

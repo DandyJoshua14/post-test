@@ -9,7 +9,7 @@ export async function post({ request }) {
     "aggregateId": body.id,
     "payload": {
       "email": body.email,
-      "modificationDate": `${body.name} modified their email on: ${Date()}`
+      "modificationDate": `${body.name} modified ${body.gender} email on: ${Date()}`
     }
   });
   return {
