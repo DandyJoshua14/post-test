@@ -1,0 +1,178 @@
+{
+  ".svelte-kit/build/index.js": {
+    "file": "index.js",
+    "src": ".svelte-kit/build/index.js",
+    "isEntry": true,
+    "imports": [
+      "_index-b5161435.js"
+    ]
+  },
+  "src/routes/stores/store.js": {
+    "file": "entries/endpoints/stores/store.js",
+    "src": "src/routes/stores/store.js",
+    "isEntry": true,
+    "imports": [
+      "_index-b5161435.js"
+    ]
+  },
+  "src/routes/api/modifyPassword.js": {
+    "file": "entries/endpoints/api/modifyPassword.js",
+    "src": "src/routes/api/modifyPassword.js",
+    "isEntry": true
+  },
+  "src/routes/api/modifyUserName.js": {
+    "file": "entries/endpoints/api/modifyUserName.js",
+    "src": "src/routes/api/modifyUserName.js",
+    "isEntry": true
+  },
+  "src/routes/api/verification.js": {
+    "file": "entries/endpoints/api/verification.js",
+    "src": "src/routes/api/verification.js",
+    "isEntry": true
+  },
+  "src/routes/api/modifyEmail.js": {
+    "file": "entries/endpoints/api/modifyEmail.js",
+    "src": "src/routes/api/modifyEmail.js",
+    "isEntry": true
+  },
+  "src/routes/api/getResolve.js": {
+    "file": "entries/endpoints/api/getResolve.js",
+    "src": "src/routes/api/getResolve.js",
+    "isEntry": true
+  },
+  "src/routes/api/delete.js": {
+    "file": "entries/endpoints/api/delete.js",
+    "src": "src/routes/api/delete.js",
+    "isEntry": true
+  },
+  "src/routes/api/logout.js": {
+    "file": "entries/endpoints/api/logout.js",
+    "src": "src/routes/api/logout.js",
+    "isEntry": true
+  },
+  "src/routes/api/login.js": {
+    "file": "entries/endpoints/api/login.js",
+    "src": "src/routes/api/login.js",
+    "isEntry": true
+  },
+  "src/routes/api/es.js": {
+    "file": "entries/endpoints/api/es.js",
+    "src": "src/routes/api/es.js",
+    "isEntry": true,
+    "imports": [
+      "src/routes/stores/store.js",
+      "_index-b5161435.js"
+    ]
+  },
+  "src/routes/__layout.svelte": {
+    "file": "entries/pages/__layout.svelte.js",
+    "src": "src/routes/__layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-b5161435.js"
+    ]
+  },
+  ".svelte-kit/runtime/components/error.svelte": {
+    "file": "entries/pages/error.svelte.js",
+    "src": ".svelte-kit/runtime/components/error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-b5161435.js"
+    ]
+  },
+  "src/routes/index.svelte": {
+    "file": "entries/pages/index.svelte.js",
+    "src": "src/routes/index.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-b5161435.js",
+      "src/routes/test.svelte",
+      "_Button-f6c0dbc0.js",
+      "_Offcanvas.svelte_svelte_type_style_lang-c26d06b1.js",
+      "_Input-36bca776.js",
+      "src/routes/stores/store.js"
+    ],
+    "css": [
+      "assets/entries/pages/index.svelte-f84181ad.css"
+    ]
+  },
+  "src/routes/test.svelte": {
+    "file": "entries/pages/test.svelte.js",
+    "src": "src/routes/test.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-b5161435.js",
+      "_Button-f6c0dbc0.js",
+      "_Offcanvas.svelte_svelte_type_style_lang-c26d06b1.js",
+      "src/routes/stores/store.js"
+    ],
+    "css": [
+      "assets/entries/pages/test.svelte-640a71a9.css"
+    ]
+  },
+  "src/routes/webwhatssapp.svelte": {
+    "file": "entries/pages/webwhatssapp.svelte.js",
+    "src": "src/routes/webwhatssapp.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-b5161435.js",
+      "_Offcanvas.svelte_svelte_type_style_lang-c26d06b1.js"
+    ]
+  },
+  "src/routes/login.svelte": {
+    "file": "entries/pages/login.svelte.js",
+    "src": "src/routes/login.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-b5161435.js",
+      "_Button-f6c0dbc0.js",
+      "_Offcanvas.svelte_svelte_type_style_lang-c26d06b1.js",
+      "src/routes/stores/store.js"
+    ],
+    "css": [
+      "assets/entries/pages/login.svelte-0a227778.css"
+    ]
+  },
+  "src/routes/all.svelte": {
+    "file": "entries/pages/all.svelte.js",
+    "src": "src/routes/all.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-b5161435.js",
+      "src/routes/test.svelte",
+      "_Button-f6c0dbc0.js",
+      "_Offcanvas.svelte_svelte_type_style_lang-c26d06b1.js",
+      "_Input-36bca776.js",
+      "src/routes/stores/store.js"
+    ],
+    "css": [
+      "assets/entries/pages/all.svelte-18b97ad7.css"
+    ]
+  },
+  "_index-b5161435.js": {
+    "file": "chunks/index-b5161435.js"
+  },
+  "_Button-f6c0dbc0.js": {
+    "file": "chunks/Button-f6c0dbc0.js",
+    "imports": [
+      "_index-b5161435.js",
+      "_Offcanvas.svelte_svelte_type_style_lang-c26d06b1.js"
+    ]
+  },
+  "_Offcanvas.svelte_svelte_type_style_lang-c26d06b1.js": {
+    "file": "chunks/Offcanvas.svelte_svelte_type_style_lang-c26d06b1.js",
+    "imports": [
+      "_index-b5161435.js"
+    ],
+    "css": [
+      "assets/Offcanvas.svelte_svelte_type_style_lang-10c0ef8e.css"
+    ]
+  },
+  "_Input-36bca776.js": {
+    "file": "chunks/Input-36bca776.js",
+    "imports": [
+      "_index-b5161435.js",
+      "_Offcanvas.svelte_svelte_type_style_lang-c26d06b1.js"
+    ]
+  }
+}
