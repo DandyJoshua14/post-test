@@ -5,12 +5,11 @@ export async function post({ request }) {
   try {
     let response = await axios.post('http://localhost:3000/api/commands', {
     "aggregateName": "Users",
-    "type": "changeName",
+    "type": "logout",
     "aggregateId": body.id,
-    "nameStats": body.nameStats,
     "payload": {
       "name": body.name,
-      "modificationDate": `${body.name} modified ${body.gender} name on: ${Date()}`
+      "logoutDate": `${body.name} logged out of ${body.gender} his account on: ${Date()}`
     }
   });
   return {

@@ -3,57 +3,79 @@
     import { goto } from "$app/navigation";
     import { v4 as uuid } from 'uuid'
     import { Container, Button } from "sveltestrap";
-import { users, Email, id, Password, isLoggedIn, Gender } from './stores/store';
+import { users, Email, id, Password, isLoggedIn, Gender, usersStoreAll, EmailCount, passwordCount, nameCount } from './stores/store';
 import { onMount } from 'svelte';
     // alert('Please refresh this Page if you know you had previously deleted your account')
       let gender = [
         {id: 1, text:'male'},
         {id: 2, text: 'female'}
       ]
+      let userDetails = [];
       let password = "";
       let userName = "";
       let email = "";
       let selected;
-      let selectedGender;
-      let answer = ""
+      let selectedGender = "";
+      let answer = "";
     async function signUp() {
-      $users = userName
-        $Email = email
-        $id = uuid()
-        $Password = password
+      $users = userName;
+        $Email = email;
+        $Password = password;
         if(answer.id === 1) {
           selectedGender = 'his'
         } else {
           selectedGender = 'her'
-        }
+        };
         $Gender = selectedGender
-        if(!$id || !$Email || !$Password || !$users || !password || !userName || !email || !gender) {
-          $id = null
-          $isLoggedIn = false
-          await goto ('/test')
+        if(!password || !userName || !email || !gender) {
+          $id = null;
+          $isLoggedIn = false;
           alert("Please Fill In the neccessary info")
           console.log($isLoggedIn)
         } else{
           alert ("Request sent. Redirecting......")
           $isLoggedIn = true;
-          $Password = password
-          setTimeout(3000, await goto('/'))
+          $Password = password;
+          $id = uuid();
+          $passwordCount = 0
+          $nameCount = 0
+          $EmailCount = 0
           console.log($isLoggedIn)
         }
-      await fetch('/api/es', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(
-          {
-            id: $id,
-            name: $users,
-            email: $Email,
-            password: $Password,
-            gender: $Gender
-          })
-        })
+        await fetch(`api/verification?name=${userName}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }).then((res) => {
+          res.json().then((us) => {
+            userDetails = us[0]
+          });
+        });
+        if(userDetails.name === userName){
+          alert('User With The same name already exists. Please use a different name')
+          throw new Error('User Already Exists')
+        } else {
+          await fetch('/api/es', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+              {
+                id: $id,
+                name: $users,
+                email: $Email,
+                password: $Password,
+                gender: $Gender,
+                passwordStats: $passwordCount,
+                emailStats: $EmailCount,
+                nameStats: $nameCount,
+              })
+            })
+
+            setTimeout(3000, await goto('/'))
+        }
   }
     </script>
     <svelte:head><title>Sign Up Form</title></svelte:head>
@@ -88,8 +110,8 @@ import { onMount } from 'svelte';
                 </select>
                 <br/>
                 <br/>
-                <p>Don't have an account? <a href="/Signup">Sign Up</a></p>
-                <Button color="success" disabled={!answer} >Log In</Button>
+                <p>Don't have an account? <a href="/login">Log In</a></p>
+                <Button color="success" disabled={!userName || !email || !password || !answer}>Sign Up</Button>
                 <br />
                 <br />
               </form>

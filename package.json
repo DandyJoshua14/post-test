@@ -11,11 +11,13 @@
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/adapter-netlify": "^1.0.0-next.50",
     "@sveltejs/kit": "next",
-    "svelte": "^3.46.3"
+    "svelte": "^3.46.3",
+    "tailwindcss": "^3.0.23"
   },
   "type": "module",
   "dependencies": {
     "axios": "^0.21.1",
+    "prettier": "^9.3.0",
     "string-hash": "^1.1.3",
     "sveltestrap": "^5.8.3",
     "uuid": "^8.3.2"

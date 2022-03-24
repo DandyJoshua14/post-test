@@ -4,41 +4,50 @@
     import { goto } from "$app/navigation";
     import { v4 as uuid } from 'uuid';
     import { Container, Button, Input, Row, Card, CardHeader, CardText, CardTitle, CardSubtitle, CardBody, Col } from "sveltestrap";
-import { users, Email, usersStore, id, Password, isLoggedIn, Gender} from './stores/store';
+import { users, Email, usersStore, id, Password, isLoggedIn, Gender, usersStoreAll, EmailCount, nameCount, passwordCount} from './stores/store';
 import { onDestroy, onMount } from 'svelte';
 import { text } from 'svelte/internal';
+let showAll = false;
+let filteredUsers = [];
 
-let userArray = [{}]
-onMount(() => {
-		console.log('Mounting...)');
-		fetch(`http://localhost:9000/api/es`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		}).then((res) => {
-			res.json().then((us) => {
-				userArray = us;
-        $usersStore = userArray;
-        console.log(userArray)
-			});
-		});
-	});
-  let username = ""
+let username = ""
   let email = "";
   let password = "";
-  async function welcmsg() {
-    let person = prompt("What Is your name")
-    alert(`Hi ${person} and welcome to this site`)
-    return person
-  }
-welcmsg();
-console.log($id)
+  let count1 = 0;
+  let count2 = 0;
+  let count3 = 0;
+console.log($usersStore, $users, $Email, $id, $Password, $isLoggedIn, $Gender, $usersStoreAll);
+onMount(() => {
+  reload()
+})
+async function reload() {
+    fetch(`api/es?email=${$Email}&&password=${$Password}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }).then((res) => {
+        res.json().then((us) => {
+          filteredUsers = us[0];
+          $users = filteredUsers.name
+          $Gender = filteredUsers.gender
+          $nameCount = filteredUsers.nameStats
+          $passwordCount = filteredUsers.passwordStats
+          $EmailCount = filteredUsers.emailStats
+          $usersStore = ""
+          console.log(filteredUsers)
+        });
+      });
+}
+
+
         async function changeEmail() {
           if(email === $Email || !email) {
             alert('Please Input A Valid Email')
           } else {
             $Email = email
+            $EmailCount++
+            console.log($EmailCount)
           }
           email = "";
         await fetch('/api/modifyEmail', {
@@ -51,9 +60,11 @@ console.log($id)
                 id: $id,
                 gender: $Gender,
                 name: $users,
-              email: $Email
+              email: $Email,
+              emailStats: $EmailCount
             })
           })
+          setTimeout(1000, reload())
           }
           
           async function changeUserName() {
@@ -61,6 +72,8 @@ console.log($id)
             alert('Please Input A Valid User name')
           } else {
             $users = username
+            $nameCount++
+            console.log($nameCount)
           }
           username = "";
         await fetch('/api/modifyUserName', {
@@ -72,16 +85,19 @@ console.log($id)
             {
                 id: $id,
                 gender: $Gender,
-              name: $users
+              name: $users,
+              nameStats: $nameCount
             })
           })
-          
+          setTimeout(1000, reload())
           }
           async function changePassword() {
           if(password === $Password || !password) {
             alert('Please Input A Valid Password')
           } else {
             $Password = password
+            $passwordCount++
+            console.log($passwordCount)
              }
              password = "";
         await fetch('/api/modifyPassword', {
@@ -95,9 +111,10 @@ console.log($id)
               name: $users,
               gender: $Gender,
               password: $Password,
+              passwordStats: $passwordCount
             })
           })
-          
+          setTimeout(1000, reload())
           }
 
   async function removeAccount() {
@@ -137,16 +154,37 @@ console.log($id)
   }
 let idNum = {index: 1}
 let searchTerm = "";
-let filteredUsers;
-$: {
-    if (searchTerm) {
-      filteredUsers = userArray.filter(array => array.name.toLowerCase().includes(searchTerm.toLowerCase()));
-      console.log(filteredUsers)
-    } else {
-      filteredUsers = userArray;
-      console.log(filteredUsers)
-    }
-  }
+// let filteredUsers = $usersStoreAll;
+// $: {
+//     if (searchTerm) {
+//       filteredUsers = $usersStoreAll.filter(array => array.name.toLowerCase().includes(searchTerm.toLowerCase()));
+//       console.log(filteredUsers)
+//     } else {
+//       filteredUsers = $usersStoreAll;
+//       // console.log(filteredUsers)
+//     }
+//   }
+async function logout() {
+        $isLoggedIn = false
+        await fetch('/api/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(
+            {
+                id: $id,
+                gender: $Gender,
+              name: $users
+            })
+        })
+        await goto('/login')
+        $id = "";
+        $Email = "";
+        $users = "";
+        $Password = "";     
+        $usersStoreAll = "";
+      }
 
 
     function myFunction() {
@@ -163,9 +201,13 @@ $: {
           <title>Home</title>
           {/if}
   </svelte:head>
+  {#if $id}
   <main>
-    {#if $id && $users && $Email && $Password && $isLoggedIn}
     <Container>
+      <br/>
+      <div id="logout">
+        <Button color="danger" on:click={logout}>Logout</Button>
+    </div>
 <div class="form">
   <br>
   <br>
@@ -195,7 +237,11 @@ $: {
       <Input type="email" bind:value={email} placeholder="Change Your Email..." />
       <br />
       <p>Current Email is: {$Email}</p>
-      <Button color="success">Change...</Button>
+      {#if filteredUsers.emailStats === 2}
+      <Button color="success" disabled>Change...</Button>
+      {:else}
+      <Button color="success" >Change...</Button>
+      {/if}
       <br />
       <br />
     </form>
@@ -212,6 +258,7 @@ $: {
       <Input type="password" id="myInput" bind:value={password} placeholder="Change Password..." />
       <input type="checkbox" on:click={myFunction}/> Show Password
       <br />
+      <br />
       <p>Current Password is: {$Password}</p>
       <Button color="success">Change...</Button>
       <br />
@@ -221,49 +268,58 @@ $: {
 </div>
 <hr>
 <br>
-<Button style="margin-left: 500px" color="danger" on:click={removeAccount}>Delete Account</Button>
+<div id="button">
+  <Button style="align-self: center" color="danger" on:click={removeAccount}>Delete Account</Button>
+</div>
 <br/>
 <br/>
 <br/>
-<Input type="text" bind:value={searchTerm} placeholder="Search User By Name"/>
-<br/>
-<table>
-  <tr>
-    <th>NO. </th>    
-    <th>| User Name | </th>   
-    <th>| Email | </th>  
-    <th>| Password |</th> 
-    <th>|  Num Of Changes Made On Name | </th>
-    <th>|  Num Of Changes Made On Email | </th>
-    <th>| Gender |</th>
-    <th>| ID | </th>  
-  </tr>
-  {#each filteredUsers as owner}
-  <tr>
-    <td>{idNum.index++}.</td>
-    <td><b>{owner.name}</b></td>
-    <td><strong>{owner.email}</strong></td>
-    <td><strong><i>{owner.password}</i></strong></td>
-    <td><strong>{owner.nameStats}</strong></td>
-    <td><strong>{owner.emailStats}</strong></td>
-    <td><strong>{owner.gender}</strong></td>
-    <td>{owner.id}</td>
-    <br/>
-    <br/>
-  </tr>
-  {/each}
-</table>
+<!-- <Input type="text" bind:value={searchTerm} placeholder="Search User By Name"/>
+<br/> -->
+<div id="profile">
+  <img style="" width=80 height=80 src="../profile-avatar.png" alt="User_Image"/>
+  <p><strong>Name:</strong> <i>{$users}</i></p>
+  {#if filteredUsers.gender === 'his'}
+  <p>Gender: Male</p>
+  {:else}
+  <p>Gender: Female</p>
+  {/if}
+  <p>Email Address: {filteredUsers.email}</p>
+  <p>Password: {filteredUsers.password}</p>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+</div>
 </Container>
-{:else if !$id}
+</main>
+{:else}
 <Test/>
 {/if}
-  </main>
-  <style>
+<style>
     hr {
       border: solid;
       width:auto
     }
-    table {
+    img {
+      border-right: 100px;
+      border-radius: 100%;
+      border-right: 500px;
+    }
+    #profile {
+      text-align: center;
+    }
+    #button {
+      text-align: center;
+    }
+    main {
+      background-color: grey;
+    }
+    #logout {
+        text-align: right;
+      }
+    /* table {
       border-collapse: collapse;
       width: 100%;
     }
@@ -274,5 +330,5 @@ $: {
     }
     tr:nth-child(even) {
       background-color: #dddddd;
-    }
+    } */
   </style>
