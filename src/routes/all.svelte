@@ -278,6 +278,9 @@
           <th><strong>User Names</strong></th>
           <th><strong>Emails</strong></th>
           <th><strong>Passwords</strong></th>
+          <th><strong>Number Of Changes Made On Name</strong></th>
+          <th><strong>Number Of Changes Made On Email</strong></th>
+          <th><strong>Number Of Changes Made On Password</strong></th>
           <th><strong>ID's</strong></th>
       </tr>
       {#each filteredUsers as user, index}
@@ -286,6 +289,9 @@
           <td>{user.name}</td>
           <td>{user.email}</td>
           <td>{user.password}</td>
+          <td>{user.nameStats}</td>
+          <td>{user.emailStats}</td>
+          <td>{user.passwordStats}</td>
           <td><i>{user.id}</i></td>
         </tr>
         {/each}

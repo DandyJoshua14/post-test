@@ -10,10 +10,10 @@ export async function post({ request }, event) {
     "aggregateName": "Users",
     "type": "create",
     "aggregateId": body.id,
-    "passwordStats": body.passwordStats,
-    "emailStats": body.emailStats,
-    "nameStats": body.nameStats,
     "payload": {
+      "passwordStats": body.passwordStats,
+      "emailStats": body.emailStats,
+      "nameStats": body.nameStats,
       "name": body.name,
       "email": body.email,
       "password": body.password,

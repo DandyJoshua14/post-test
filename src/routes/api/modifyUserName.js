@@ -7,8 +7,8 @@ export async function post({ request }) {
     "aggregateName": "Users",
     "type": "changeName",
     "aggregateId": body.id,
-    "nameStats": body.nameStats,
     "payload": {
+      "nameStats": body.nameStats,
       "name": body.name,
       "modificationDate": `${body.name} modified ${body.gender} name on: ${Date()}`
     }

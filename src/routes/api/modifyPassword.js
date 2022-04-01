@@ -7,8 +7,8 @@ export async function post({ request }) {
     "aggregateName": "Users",
     "type": "modifyPassword",
     "aggregateId": body.id,
-    "passwordStats": body.passwordStats,
     "payload": {
+      "passwordStats": body.passwordStats,
       "password": body.password,
       "modificationDate": `${body.name} modified ${body.gender} Password on: ${Date()}`
     }

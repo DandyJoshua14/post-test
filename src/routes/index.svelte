@@ -1,12 +1,12 @@
 <script>
   import stringHash from 'string-hash';
   import Test from './test.svelte'
-    import { goto } from "$app/navigation";
-    import { v4 as uuid } from 'uuid';
-    import { Container, Button, Input, Row, Card, CardHeader, CardText, CardTitle, CardSubtitle, CardBody, Col } from "sveltestrap";
-import { users, Email, usersStore, id, Password, isLoggedIn, Gender, usersStoreAll, EmailCount, nameCount, passwordCount} from './stores/store';
-import { onDestroy, onMount } from 'svelte';
-import { text } from 'svelte/internal';
+  import { goto } from "$app/navigation";
+  import { v4 as uuid } from 'uuid';
+  import { Container, Button, Input, Row, Card, CardHeader, CardText, CardTitle, CardSubtitle, CardBody, Col } from "sveltestrap";
+  import { users, Email, usersStore, id, Password, isLoggedIn, Gender, usersStoreAll, EmailCount, nameCount, passwordCount} from './stores/store';
+  import { onDestroy, onMount } from 'svelte';
+  import { text } from 'svelte/internal';
 let showAll = false;
 let filteredUsers = [];
 
@@ -35,7 +35,6 @@ async function reload() {
           $passwordCount = filteredUsers.passwordStats
           $EmailCount = filteredUsers.emailStats
           $usersStore = ""
-          console.log(filteredUsers)
         });
       });
 }
@@ -217,7 +216,7 @@ async function logout() {
       <Input type="text" bind:value={username} placeholder="Change User name..." />
       <br />
       <p>Current User name is: {$users}</p>
-      <Button color="success">Change...</Button>
+      <Button color="success" disabled={$nameCount === 6}>Change...</Button>
       <br />
       <br />
     </form>
@@ -237,11 +236,7 @@ async function logout() {
       <Input type="email" bind:value={email} placeholder="Change Your Email..." />
       <br />
       <p>Current Email is: {$Email}</p>
-      {#if filteredUsers.emailStats === 2}
-      <Button color="success" disabled>Change...</Button>
-      {:else}
-      <Button color="success" >Change...</Button>
-      {/if}
+      <Button color="success" disabled={$EmailCount === 6}>Change...</Button>
       <br />
       <br />
     </form>
@@ -260,7 +255,7 @@ async function logout() {
       <br />
       <br />
       <p>Current Password is: {$Password}</p>
-      <Button color="success">Change...</Button>
+      <Button color="success" disabled={$passwordCount === 6}>Change...</Button>
       <br />
       <br />
     </form>

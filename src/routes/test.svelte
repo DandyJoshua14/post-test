@@ -10,6 +10,9 @@ import { onMount } from 'svelte';
         {id: 1, text:'male'},
         {id: 2, text: 'female'}
       ]
+      let count1 = 0;
+      let count2 = 0;
+      let count3 = 0;
       let userDetails = [];
       let password = "";
       let userName = "";
@@ -68,9 +71,9 @@ import { onMount } from 'svelte';
                 email: $Email,
                 password: $Password,
                 gender: $Gender,
-                passwordStats: $passwordCount,
-                emailStats: $EmailCount,
-                nameStats: $nameCount,
+                passwordStats: count1,
+                emailStats: count2,
+                nameStats: count3,
               })
             })
 

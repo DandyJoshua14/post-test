@@ -5,7 +5,7 @@ exports.handler = init({
 	assets: new Set(["favicon.png","my-app.png","profile-avatar.png"]),
 	_: {
 		mime: {".png":"image/png"},
-		entry: {"file":"start-d77c9ba8.js","js":["start-d77c9ba8.js","chunks/vendor-2da1beec.js","chunks/singletons-d1fb5791.js"],"css":["assets/vendor-28d9e71a.css"]},
+		entry: {"file":"start-441e47e3.js","js":["start-441e47e3.js","chunks/vendor-2da1beec.js","chunks/singletons-d1fb5791.js"],"css":["assets/vendor-28d9e71a.css"]},
 		nodes: [
 			() => Promise.resolve().then(() => require('../server/nodes/0.js')),
 			() => Promise.resolve().then(() => require('../server/nodes/1.js')),
